@@ -21,12 +21,14 @@ sudo pip3 install rpi_ws281x
 echo 4/$n #autostartGUI
 cd ~/lvglnavi
 sudo mv ./str2str-in.service /etc/systemd/system/
+sudo systemctl daemon-reload
 sudo systemctl enable str2str-in.service
 mkdir -p ~/.config/lxsession/LXDE-pi
 mv ./autostart ~/.config/lxsession/LXDE-pi/autostart 
 
 echo 5/$n #shutdouwn button
 sudo mv ./shutdownbuttond.service /etc/systemd/system
+sudo systemctl daemon-reload
 sudo systemctl enable shutdownbuttond.service
 
 echo 6/$n #shp
