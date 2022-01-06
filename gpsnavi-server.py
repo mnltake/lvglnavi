@@ -5,13 +5,10 @@ from struct import unpack,pack
 import usys as sys
 sys.path.append('') # See: https://github.com/micropython/micropython/issues/6419
 
-# try:
-#     script_path = __file__[:__file__.rfind('/')] if __file__.find('/') >= 0 else '.'
-# except NameError:
-#     script_path = ''
 import lvgl as lv
 lv.init()
-import SDL,time,uos
+import SDL,time
+import os as os
 SDL.init()
 import fs_driver
 fs_drv = lv.fs_drv_t()
@@ -54,11 +51,12 @@ def event_handler(evt):
         label1.set_text("%s touch"%touch_key)
         print("%s was pressed"%touch_key)
         
-btnm_map = ["A", "B", "C", "S", "W", "D", "V", "R", "E", "M", "H", "P",""]
+btnm_map = ["A", "B", "C", "\n", "S", "W", "D", "\n", "V", "R", "E","\n", "M", "H", "P",""]
 btnm1 = lv.btnmatrix(lv.scr_act())
-btnm1.set_size(1024, 75)
+btnm1.set_size(200, 200)
 btnm1.set_map(btnm_map)
-btnm1.align(lv.ALIGN.BOTTOM_LEFT, 0, 0)
+btnm1.set_btn_ctrl_all( lv.btnmatrix.CTRL.NO_REPEAT)
+btnm1.align(lv.ALIGN.TOP_RIGHT, 0, 200)
 btnm1.add_event_cb(event_handler, lv.EVENT.ALL, None)
 
 #shutdown Button
@@ -87,7 +85,7 @@ class Button():
         code = evt.get_code()
         btnx = evt.get_target()
         if code == lv.EVENT.CLICKED:
-            uos.system('sudo shutdown -h now')
+            os.system('sudo shutdown -h now')
         # Get the first child of the button which is the label and change its text
         label = btnx.get_child(0)
         label.set_text("x")
@@ -244,76 +242,57 @@ view =False
 oldmsg=[0,0,0,0,0,0,-1,-1,-1,0]
 delta=[0,0,0,0,0,0,0,0,0,0]
 addr = socket.getaddrinfo('0.0.0.0', 50001)[0][-1]
-# print(addr)
 s = socket.socket()
 s.bind(addr)
 s.listen(1)
-
-# print('listening on', addr)
 cl, addr = s.accept()
 print('client connected ')
-
-
-while True:
-    buff = cl.recv(22)
-    sendbuff=pack("s",touch_key)
-    cl.send(sendbuff)
-    touch_key ="0"
-    # print(len(buff))
-    if buff:
-        newmsg=unpack('hhHHhhIIbb',buff)
-        # print(newmsg)
-        for i in range(10):
-            if (newmsg[i] == oldmsg[i]):
-                delta[i]=False
-            else :
-                delta[i]=True
-        #     print(delta[i])
-
-        # print(delta)
-
-        meter.set_indicator_value(indic, int(newmsg[0])+50)
-        if newmsg[0] < 0:
-            style1.set_text_color(lv.palette_darken(lv.PALETTE.BLUE, 4))
-        elif newmsg[0] > 0:
-            style1.set_text_color(lv.palette_darken(lv.PALETTE.RED, 4))
-        else:
-            style1.set_text_color(lv.palette_darken(lv.PALETTE.GREEN, 4))
-
-        if newmsg[9] == 0:
-            if delta[1]:
-                label1.set_text("  %+4d ㎝"%newmsg[1])
-            if delta[2]:
-                label2.set_text("工程 :%d" %newmsg[2])
-            if delta[3]:
-                label3.set_text("幅 :%d㎝" %newmsg[3])
-            # label4.set_text("rev :%d" %newmsg[4])
-            if delta[5]:
-                label5.set_text("c:%d㎝" %newmsg[5])
-            if delta[6]:
-                label6.set_text("圃場面積 :%4d㎡" %newmsg[6])
-            if delta[7]:
-                label7.set_text("作業面積 :%4d㎡" %newmsg[7])
-            
-            if newmsg[4] < 0 :
-                label8.set_text("→" ) 
+try:
+    while True:
+        navi_buff = cl.recv(22)
+        key_buff=pack("s",touch_key)
+        cl.send(key_buff)
+        # touch_key ="0"
+        if navi_buff:
+            newmsg=unpack('hhHHhhIIbb',navi_buff)
+            for i in range(10):
+                if (newmsg[i] == oldmsg[i]):
+                    delta[i]=False
+                else :
+                    delta[i]=True
+    
+            meter.set_indicator_value(indic, int(newmsg[0])+50)
+            if newmsg[0] < 0:
+                style1.set_text_color(lv.palette_darken(lv.PALETTE.BLUE, 4))
+            elif newmsg[0] > 0:
+                style1.set_text_color(lv.palette_darken(lv.PALETTE.RED, 4))
             else:
-                label8.set_text("←" ) 
-            #label9.set_text("速度 :%.2fm/s" %navidata[10])
-        else:
-            key=newmsg[9]
-            # print(key)
-            label1.set_text("%s pressed"%keyname[key])
-            time.sleep(1)
-            # if key == 7:
-                # view = not(view)
-                # if view:
-                #     uos.system('wmctrl -a "sudo"' )
-                # else :
-                #     uos.system('wmctrl -a "TFT Simulator"' )
-        oldmsg = newmsg
+                style1.set_text_color(lv.palette_darken(lv.PALETTE.GREEN, 4))
 
-  
-        # print(str(data, 'utf8'), end='')
-        #cl.send(data)
-    # cl.close()
+            if newmsg[9] == 0:
+                if delta[1]:
+                    label1.set_text("  %+4d ㎝"%newmsg[1])
+                if delta[2]:
+                    label2.set_text("工程 :%d" %newmsg[2])
+                if delta[3]:
+                    label3.set_text("幅 :%d㎝" %newmsg[3])
+                # label4.set_text("rev :%d" %newmsg[4])
+                if delta[5]:
+                    label5.set_text("c:%d㎝" %newmsg[5])
+                if delta[6]:
+                    label6.set_text("圃場面積 :%4d㎡" %newmsg[6])
+                if delta[7]:
+                    label7.set_text("作業面積 :%4d㎡" %newmsg[7])
+                
+                if newmsg[4] < 0 :
+                    label8.set_text("→" ) 
+                else:
+                    label8.set_text("←" ) 
+                #label9.set_text("速度 :%.2fm/s" %navidata[10])
+            else:
+                key=newmsg[9]
+                label1.set_text("%s pressed"%keyname[key])
+
+            oldmsg = newmsg
+except:
+    cl.close()

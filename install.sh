@@ -2,20 +2,21 @@
 cd ~
 n=10
 echo 1/$n
-sudo apt update && apt upgarade 
+sudo apt update && apt upgrade 
 
 echo 2/$n #RTKLIB
-cd ~
+cd 
 git clone https://github.com/tomojitakasu/RTKLIB.git
 cd ~/RTKLIB
 git checkout rtklib_2.4.3
-cd ~/RTKLIB/app/str2str/gcc
+cd ~/RTKLIB/app/consapp/str2str/gcc
 make 
 
 echo 3/$n #neopixcel
+cd
 git clone https://github.com/jgarff/rpi_ws281x
 sudo apt-get install scons -y
-cd ~/rpi_ws281x
+cd rpi_ws281x
 scons
 sudo pip3 install rpi_ws281x
 
@@ -35,7 +36,7 @@ sudo apt install libgeos-dev python3-numpy -y
 sudo pip3 install pyshp Shapely pymap3d
 
 echo 7/$n #GPIO UART
-sudo mv ./config.txt /boot/config.txt
+#sudo mv ./config.txt /boot/config.txt
 sudo systemctl disable hciuart
 
 echo 8/$n #lvgl micropython
@@ -52,5 +53,6 @@ make -C mpy-cross -j4
 make -C ports/unix/ -j4
 sudo ln -s ./ports/unix/micropython /usr/local/bin/micropython
 
+sudo nano /boot/config.txt
 nano ~/lvglnavi/config.init.template
 nano ~/lvglnavi/str2str-in.sh.template

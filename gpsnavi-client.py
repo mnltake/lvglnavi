@@ -42,7 +42,6 @@ wide = WIDE
 margin = int(read_default.get('margin'))
 ubxPort = str(read_default.get('ubxPort'))
 ubxRate = int(read_default.get('ubxRate'))
-useNeopixcel = bool(read_default.get('useNeopixcel'))
 ax = 0 ;ay = 0;bx = 1 ;by = 0 ;ABsin =0; ABcos = 1
 _ax = 0;_ay = 0;_bx = 1;_by = 0;_rad = 0;_ABsin =0;_ABcos =1
 aax = 0;aay = 0;bbx = 0;bby = 0;rrad = 0;AABBsin =0; AABBcos =1
@@ -95,16 +94,15 @@ else :
     key_x = (29 ,23 ,21)
 
 # neopixcel LED strip
-if useNeopixcel:
-    LED_COUNT      = 26     # Number of LED pixels.13
-    LED_PIN        = 18      # GPIO pin connected to the pixels (18 uses PWM!)=Pin12(BOARD)
-    LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
-    LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
-    LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
-    LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
-    LED_CHANNEL    = 0
-    strip = PixelStrip(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
-    strip.begin()
+LED_COUNT      = 26     # Number of LED pixels.13
+LED_PIN        = 18      # GPIO pin connected to the pixels (18 uses PWM!)=Pin12(BOARD)
+LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
+LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
+LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
+LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
+LED_CHANNEL    = 0
+strip = PixelStrip(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
+strip.begin()
 
 #座標取得
 def setpoint():
@@ -307,8 +305,7 @@ try:
                 resttime = -99
 
 #neopixcel LED
-            if useNeopixcel:
-                wcolorarw (strip , arw)
+#            wcolorarw (strip , arw)
 #表示
 
             if view == True  :
@@ -404,7 +401,7 @@ try:
                 c +=  nav
                 print("C-PointSet　%6.2f" %c)
                 time.sleep(1)
-        elif ( key == 9 ): #Ex 基準線交換
+        elif ( key == 9 or touch_key == "E"): #Ex 基準線交換
                 base = not(base)
                 print("基準線を変更しました" )
                 time.sleep(1)
