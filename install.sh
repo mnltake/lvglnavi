@@ -7,13 +7,11 @@ sudo apt update && apt upgrade
 echo 2/$n #RTKLIB
 cd 
 git clone https://github.com/tomojitakasu/RTKLIB.git
-cd ~/RTKLIB
-git checkout rtklib_2.4.3
-cd ~/RTKLIB/app/consapp/str2str/gcc
+cd ~/RTKLIB/app/str2str/gcc
 make 
 
 echo 3/$n #neopixcel
-cd
+cd ~
 git clone https://github.com/jgarff/rpi_ws281x
 sudo apt-get install scons -y
 cd rpi_ws281x
@@ -45,14 +43,14 @@ sudo apt install build-essential libreadline-dev libffi-dev git pkg-config libsd
 git clone --recurse-submodules https://github.com/lvgl/lv_micropython.git
 cd ~/lvglnavi/
 # mv ./lv_conf.h ~/lv_micropython/lib/lv_bindings/lv_conf.h
-mv ./lv_drv_conf.h ~/lv_micropython/lib/lv_bindings/driver/SDL/lv_drv_conf.h
+cp -f ./lv_drv_conf.h ~/lv_micropython/lib/lv_bindings/driver/SDL/lv_drv_conf.h
 # mv ./SDL_monitor.c ~/lv_micropython/lib/lv_bindings/driver/SDL/SDL_monitor.c
-mv ./qrcodegen.c ~/lv_micropython/lib/lv_bindings/lvgl/src/extra/libs/qrcode/qrcodegen.c
+cp -f ./qrcodegen.c ~/lv_micropython/lib/lv_bindings/lvgl/src/extra/libs/qrcode/qrcodegen.c
 cd ~/lv_micropython
 make -C mpy-cross -j4
 make -C ports/unix/ -j4
 sudo ln -s ./ports/unix/micropython /usr/local/bin/micropython
 
-sudo nano /boot/config.txt
-nano ~/lvglnavi/config.init.template
-nano ~/lvglnavi/str2str-in.sh.template
+# sudo nano /boot/config.txt
+# nano ~/lvglnavi/config.init.template
+# nano ~/lvglnavi/str2str-in.sh.template
