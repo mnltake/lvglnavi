@@ -247,14 +247,14 @@ s.bind(addr)
 s.listen(1)
 cl, addr = s.accept()
 print('client connected ')
-try:
-    while True:
-        navi_buff = cl.recv(22)
+
+while True:
+        navi_buff = cl.recv(26)
         key_buff=pack("s",touch_key)
         cl.send(key_buff)
-        # touch_key ="0"
+        touch_key ="0"
         if navi_buff:
-            newmsg=unpack('hhHHhhIIbb',navi_buff)
+            newmsg=unpack('hhHHhiIIbb',navi_buff)
             for i in range(10):
                 if (newmsg[i] == oldmsg[i]):
                     delta[i]=False
@@ -294,5 +294,5 @@ try:
                 label1.set_text("%s pressed"%keyname[key])
 
             oldmsg = newmsg
-except:
-    cl.close()
+# except:
+#     cl.close()

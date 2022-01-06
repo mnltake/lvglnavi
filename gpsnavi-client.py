@@ -341,9 +341,9 @@ try:
 # socket send recv
         try:
             buff=b''
-            buff=struct.pack("hhHHhhIIbb",int(arw),int(nav),int(koutei),int(wide),int(rev),int(c),int(area),int(menseki),int(base),int(key))
+            buff=struct.pack("hhHHhiIIbb",int(arw),int(nav),int(koutei),int(wide),int(rev),int(c),int(area),int(menseki),int(base),int(key))
             s.sendall(buff)
-            # print(buff)
+            # print(len(buff))
             rbuff= s.recv(1)
             rcv_key=struct.unpack("s",rbuff)
             touch_key=str(rcv_key[0],encoding='utf-8')
