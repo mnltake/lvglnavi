@@ -1,0 +1,11 @@
+[Unit]
+Description=Shutdown Daemon
+
+[Service]
+ExecStart =/home/pi/lvglnavi/shutdownd.py
+Restart=always
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
+

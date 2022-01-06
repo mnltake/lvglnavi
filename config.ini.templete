@@ -1,0 +1,30 @@
+[DEFAULT]
+#機体名
+roverName = MY_TRACTOR
+#作業幅cm
+WIDE = 200
+#shpとの余裕分cm
+margin = 20
+#マーカー方向 枕2工程 :False  枕3工程 ：True
+Direction = True  
+#level１本あたりのcm
+cmPerlevel = 4 
+
+useNeopixel= False
+#ubx out [USB]:/dev/ttyACM0  [GPIO] UART0(gpio14,15):/dev/ttyAMA0  UART4(gpio8,9 Rpi4 only):/dev/ttyAMA1
+ubxPort = /dev/ttyACM0
+ubxRate = 115200
+savelog = True
+#logファイルパス
+logdir = /media/pi/RTKLOG/
+#SHPファイルパス
+shpfile = /home/pi/lvglnavi/SHP/sample.shp
+#RTK_BASE lat(deg) lon(deg) heigh(m)
+baselat = 34.000000
+baselon =136.000000
+baseh = 100.000
+#LINE Notifyアクセストークン https://notify-bot.line.me/ja/
+line_access_token= ********************************
+#yahoo API ID https://developer.yahoo.co.jp/sitemap/
+yahoo_crient_id = $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+

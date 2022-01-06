@@ -1,0 +1,6 @@
+#! /bin/sh
+cd /home/pi/RTKLIB/app/str2str/gcc/
+
+./str2str -in ntrip://[user]:[pass]@[HOST]:[PORT]/[MountID] -out serial://ttyUSB0:115200
+
+# ./str2str -in ntrip://[user]:[pass]@[HOST]:[PORT]/[MountID] -out serial://ttyAMA0:115200
