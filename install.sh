@@ -5,7 +5,7 @@ echo 1/$n
 sudo apt update && apt upgrade 
 
 echo 2/$n #RTKLIB
-cd 
+cd ~
 git clone https://github.com/tomojitakasu/RTKLIB.git
 cd ~/RTKLIB/app/str2str/gcc
 make 
@@ -20,14 +20,14 @@ sudo pip3 install rpi_ws281x
 
 echo 4/$n #autostartGUI
 cd ~/lvglnavi
-sudo mv ./str2str-in.service /etc/systemd/system/
+sudo cp -f ./str2str-in.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable str2str-in.service
 mkdir -p ~/.config/lxsession/LXDE-pi
 mv ./autostart ~/.config/lxsession/LXDE-pi/autostart 
 
 echo 5/$n #shutdouwn button
-sudo mv ./shutdownbuttond.service /etc/systemd/system
+sudo cp -f ./shutdownbuttond.service /etc/systemd/system
 sudo systemctl daemon-reload
 sudo systemctl enable shutdownbuttond.service
 
@@ -36,7 +36,7 @@ sudo apt install libgeos-dev python3-numpy -y
 sudo pip3 install pyshp Shapely pymap3d
 
 echo 7/$n #GPIO UART
-#sudo mv ./config.txt /boot/config.txt
+sudo cp -b  ./config.txt /boot/config.txt
 sudo systemctl disable hciuart
 
 echo 8/$n #lvgl micropython
