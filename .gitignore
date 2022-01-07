@@ -8,4 +8,5 @@ config.ini
 str2str-in.sh
 __pycache__/
 .vscode/
+SHP/
 
