@@ -56,8 +56,20 @@ sudo reboot
 
 ### vnc idoltime=0
 
+https://help.realvnc.com/hc/en-us/articles/360002251297#server-idletimeout
 ### LXTerminal 設定
 
+#F9P u-center setting(WindowsPC上でF9PとUSBでつないで)
+## download u-center for Windows, v.21.09
+https://www.u-blox.com/sites/default/files/u-centersetup_v21.09.zip
+
+### シリアルポートが認識されないとき
+## ファームウェアアップデート（HPG1.30)
+https://www.u-blox.com/en/ubx-viewer/view/UBX_F9_100_HPG130.aa1ce2137147f95bbde5532f1b495848.bin?url=https%3A%2F%2Fwww.u-blox.com%2Fsites%2Fdefault%2Ffiles%2FUBX_F9_100_HPG130.aa1ce2137147f95bbde5532f1b495848.bin
+
+##Tools - Receiver configurasion 
+  -Load configuration -Transferfile ->GNSS
+  ubx_f9p_HPG130_posned_pvt_5Hz.txt
 # 配線
 
 ## ラズパイ-F9P
