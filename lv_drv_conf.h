@@ -83,7 +83,7 @@
  *-------------------*/
 #define USE_MONITOR         1
 #if USE_MONITOR
-#define MONITOR_HOR_RES     1280
+#define MONITOR_HOR_RES     1024
 #define MONITOR_VER_RES     720
 #define MONITOR_ZOOM        1                       /* Scale window by this factor (useful when simulating small screens) */
 #define MONITOR_SDL_INCLUDE_PATH    <SDL2/SDL.h>    /*Eclipse: <SDL2/SDL.h>    Visual Studio: <SDL.h>*/
