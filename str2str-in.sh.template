@@ -1,6 +1,10 @@
 #! /bin/sh
 cd /home/pi/RTKLIB/app/str2str/gcc/
-
-./str2str -in ntrip://[user]:[pass]@[HOST]:[PORT]/[MountID] -out serial://ttyUSB0:115200
+./str2str -in ntrip://[user]:[password]@[HOST]:[PORT]/[MountID] -out serial://ttyUSB0:115200
 
 # ./str2str -in ntrip://[user]:[pass]@[HOST]:[PORT]/[MountID] -out serial://ttyAMA0:115200
+# ttyUSB : simpleRTK2B のUART2とUSBケーブルで繋ぐ　XBEE RX-XBEE TX 参考https://www.ardusimple.com/simplertk2b-hack-1-unleash-the-usb-power-of-simplertk2b/
+# ttyAMA0 : simpleRTK2B のUART1とラズパイのGPIO UART0に繋ぐ　TX1 - GPIO15（RX)　RX1- GPIO14(TX) 5V_IN - 5V IOREF - 3.3v
+#　[user]:[password]はなければ省略可
+#　str2str.sh に名前を変更して保存　
+#　chmod +X str2str.sh

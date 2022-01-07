@@ -25,6 +25,9 @@ lvgl GUI guidance navigation
 
 ・(オプション　降雨予測用）Yahoo API ID https://developer.yahoo.co.jp/start/
 
+・(オプション　外部ライトバー）NeopixelLED　https://www.switch-science.com/catalog/5208/ 
+https://qiita.com/m_take/items/e80735e860ce235c1a74
+
 # Raspberry Pi
 
 ## Raspberry Pi OS(Legasy) buster

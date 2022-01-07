@@ -1,30 +1,44 @@
 [DEFAULT]
-#機体名
+# 機体名
 roverName = MY_TRACTOR
-#作業幅cm
-WIDE = 200
-#shpとの余裕分cm
-margin = 20
-#マーカー方向 枕2工程 :False  枕3工程 ：True
-Direction = True  
-#level１本あたりのcm
-cmPerlevel = 4 
 
-useNeopixel= False
-#ubx out [USB]:/dev/ttyACM0  [GPIO] UART0(gpio14,15):/dev/ttyAMA0  UART4(gpio8,9 Rpi4 only):/dev/ttyAMA1
-ubxPort = /dev/ttyACM0
-ubxRate = 115200
-savelog = True
-#logファイルパス
-logdir = /media/pi/RTKLOG/
-#SHPファイルパス
-shpfile = /home/pi/lvglnavi/SHP/sample.shp
-#RTK_BASE lat(deg) lon(deg) heigh(m)
+# 作業幅cm
+WIDE = 200
+
+# RTK基地局座標 緯度lat(deg) 経度lon(deg) 高さheigh(m)
 baselat = 34.000000
 baselon =136.000000
 baseh = 100.000
-#LINE Notifyアクセストークン https://notify-bot.line.me/ja/
+
+# ubx out [USB]:/dev/ttyACM0  [GPIO] UART0(gpio14,15):/dev/ttyAMA0  UART4(gpio8,9 Rpi4 only):/dev/ttyAMA1
+ubxPort = /dev/ttyACM0
+ubxRate = 115200
+
+## ここまでが必須項目
+
+# マーカー方向 枕2工程 :False  枕3工程 ：True
+Direction = True  
+
+# level１本あたりのcm
+cmPerlevel = 4 
+
+# 外部ライトバー 5v-(1N4001)-vcc Pin18-DIN GND-GND 参考　https://qiita.com/m_take/items/e80735e860ce235c1a74
+useNeopixel= False
+
+# log保存
+savelog = True
+logdir = /media/pi/RTKLOG/
+
+# SHPファイルパス
+shpfile = /home/pi/lvglnavi/SHP/sample.shp
+
+# SHPとの余裕分cm
+margin = 20
+
+# LINE Notifyアクセストークン https://notify-bot.line.me/ja/
 line_access_token= ********************************
-#yahoo API ID https://developer.yahoo.co.jp/sitemap/
+
+# Yahoo API ID https://developer.yahoo.co.jp/sitemap/
 yahoo_crient_id = $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
+# config.ini に名前を変えて保存

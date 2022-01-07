@@ -2,7 +2,8 @@
 cd ~
 n=10
 echo 1/$n
-sudo apt update && sudo apt upgrade 
+sudo apt update 
+sudo apt upgrade -y
 
 echo 2/$n #RTKLIB
 cd ~
@@ -25,6 +26,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable str2str-in.service
 mkdir -p ~/.config/lxsession/LXDE-pi
 cp -f ./autostart ~/.config/lxsession/LXDE-pi/autostart 
+cp -f ./lxtrminal.conf ~/.config/lxterminal/
 
 echo 5/$n #shutdouwn button
 sudo cp -f ./shutdownbuttond.service /etc/systemd/system
@@ -36,7 +38,7 @@ sudo apt install libgeos-dev python3-numpy -y
 sudo pip3 install pyshp Shapely pymap3d
 
 echo 7/$n #GPIO UART
-sudo cp -b  ./config.txt /boot/config.txt
+sudo cp -fb  ./config.txt /boot/config.txt
 sudo systemctl disable hciuart
 
 echo 8/$n #lvgl micropython
@@ -51,7 +53,7 @@ cp -f ./qrcodegen.c ~/lv_micropython/lib/lv_bindings/lvgl/src/extra/libs/qrcode/
 cd ~/lv_micropython
 make -C mpy-cross -j4
 make -C ports/unix/ -j4
-sudo ln -s ./ports/unix/micropython /usr/local/bin/micropython
+sudo ln -f ./ports/unix/micropython /usr/local/bin/micropython
 
 # sudo nano /boot/config.txt
 # nano ~/lvglnavi/config.init.template
