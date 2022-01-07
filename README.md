@@ -106,7 +106,7 @@ https://www.u-blox.com/en/ubx-viewer/view/UBX_F9_100_HPG130.aa1ce2137147f95bbde5
 |  | RaspberryPi| ←（ubx-relposned pvt)| simpleRTK2B(F9P) || RaspberryPi| （RTCM）→| simpleRTK2B(F9P) |
 |:-----------|-|-----------:|-|-----------:|------------:|-|-----------:|
 |**Default**|USB(ttyACM0)|←(ubx)|USB-POWER||USB(ttyUSB0)|(RTCM)→|USB-XBEE|
-|[HAT](https://github.com/mnltake/simpleRTK2BpiHAT)|USB(ttyACM0)|←(ubx)|UART1||GPIO UART0(ttyAMA0)|(RTCM)→|UART2|
+|[HAT](https://github.com/mnltake/simpleRTK2BpiHAT)|USB(ttyACM0)|←(ubx)|USB-POWER||GPIO UART0(ttyAMA0)|(RTCM)→|UART2|
 |RPi4|GPIO UART4(ttyAMA1)|←(ubx)|UART1||GPIO UART0(ttyAMA0)|(RTCM)→|UART2|
 ## 3x4キーパッド
 
