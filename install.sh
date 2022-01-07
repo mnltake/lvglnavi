@@ -26,7 +26,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable str2str-in.service
 mkdir -p ~/.config/lxsession/LXDE-pi
 cp -f ./autostart ~/.config/lxsession/LXDE-pi/autostart 
-cp -f ./lxtrminal.conf ~/.config/lxterminal/
+cp -f ./lxterminal.conf ~/.config/lxterminal/
 
 echo 5/$n #shutdouwn button
 sudo cp -f ./shutdownbuttond.service /etc/systemd/system
