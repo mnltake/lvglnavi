@@ -23,7 +23,7 @@ lvgl GUI guidance navigation
 ・タブレット解像度1024*600以上(amazon Fire7で動作確認)
 
 ・RTK基準局補正情報
-
+    http://rtk.silentsystem.jp/
 ・(オプション 作業記録用）LINE Notify アクセストークン 
     https://notify-bot.line.me/ja/
 
@@ -92,8 +92,8 @@ https://www.u-blox.com/en/ubx-viewer/view/UBX_F9_100_HPG130.aa1ce2137147f95bbde5
 |  | RaspberryPi| ←（ubx-relposned pvt)| simpleRTK2B(F9P) || RaspberryPi| （RTCM）→| simpleRTK2B(F9P) |
 |:-----------|-|-----------:|-|-----------:|------------:|-|-----------:|
 |**Default**|USB(ttyACM0)|←(ubx)|USB-POWER||USB(ttyUSB0)|(RTCM)→|USB-XBEE|
-|[HAT](https://github.com/mnltake/simpleRTK2BpiHAT)|USB(ttyACM0)|←(ubx)|USB-POWER||GPIO UART0(ttyAMA0)|(RTCM)→|USB-XBEE|
-|RPi4|GPIO UART4(ttyAMA1)|←(ubx)|USB-POWER||GPIO UART0(ttyAMA0)|(RTCM)→|USB-XBEE|
+|[HAT](https://github.com/mnltake/simpleRTK2BpiHAT)|USB(ttyACM0)|←(ubx)|UART1||GPIO UART0(ttyAMA0)|(RTCM)→|UART2|
+|RPi4|GPIO UART4(ttyAMA1)|←(ubx)|UART1||GPIO UART0(ttyAMA0)|(RTCM)→|UART2|
 ## 3x4キーパッド
     BoardPin No.
     key_y = BoardPin No.(37 ,35 ,33 ,31 ) =GPIO No.(26 ,19 ,13, 6)
