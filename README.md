@@ -43,7 +43,7 @@ https://qiita.com/m_take/items/e80735e860ce235c1a74
 ## Script
 ```
 ~$ git clone https://github.com/mnltake/lvglnavi.git
-cd lvnavi/
+cd lvglnavi/
 chmod +x *.sh
 chmod +x *.py
 ./install.sh
