@@ -7,13 +7,16 @@ lvgl GUI guidance navigation
 
 ・microSDカード 16GB以上
 
-・simpleRTK2B - Basic Starter Kit based on u-blox ZED-F9P  https://www.ardusimple.com/product/simplertk2b-basic-starter-kit-ip65/
+・simpleRTK2B - Basic Starter Kit based on u-blox ZED-F9P  
+    https://www.ardusimple.com/product/simplertk2b-basic-starter-kit-ip65/
 
 ・電源5V2.4A以上
 
-・3x4キーパッド https://www.aitendo.com/product/3644
+・3x4キーパッド 
+    https://www.aitendo.com/product/3644
 
-・1x3スイッチ https://www.aitendo.com/product/11784
+・1x3スイッチ 
+    https://www.aitendo.com/product/11784
 
 ・スマホ テザリング用
 
@@ -21,26 +24,34 @@ lvgl GUI guidance navigation
 
 ・RTK基準局補正情報
 
-・(オプション 作業記録用）LINE Notify アクセストークン https://notify-bot.line.me/ja/
+・(オプション 作業記録用）LINE Notify アクセストークン 
+    https://notify-bot.line.me/ja/
 
-・(オプション 降雨予測用）Yahoo API ID https://developer.yahoo.co.jp/start/
+・(オプション 降雨予測用）Yahoo API ID 
+    https://developer.yahoo.co.jp/start/
 
-・(オプション 外部ライトバー）NeopixelLED https://www.switch-science.com/catalog/5208/ 
-https://qiita.com/m_take/items/e80735e860ce235c1a74
+・(オプション 外部ライトバー）NeopixelLED
+    https://www.switch-science.com/catalog/5208/ 
+    https://qiita.com/m_take/items/e80735e860ce235c1a74
 
 # Raspberry Pi
 
 ## Raspberry Pi OS(Legasy) buster
-最新のBullseye だとDisplayなしでVNCを使うときは /boot/config.xtの設定が必要
+    最新のBullseye だとDisplayなしでVNCを使うときは /boot/config.xtの設定が必要
 https://forums.raspberrypi.com/viewtopic.php?t=323294&start=25
 
 ## raspi-config
 
-### Wifi /Locate - jp utf-8
+### Wifi /Locate 
+    jp utf-8
 
 ### 解像度- 1280*720
 
-### SSH - enable /VNC - enable /Serial Port - enable /Serial Console - disable
+### Interface
+    SSH - enable 
+    VNC - enable 
+    Serial Port - enable 
+    Serial Console - disable
 
 ## Script
 ```
@@ -56,23 +67,24 @@ nano str2str-in.sh.template
 sudo reboot
 ```
 
-### vnc idoltime=0
+### VNCのアイドルタイムを無効にする
 
 https://help.realvnc.com/hc/en-us/articles/360002251297#server-idletimeout
 ### LXTerminal 設定
 
-# F9P u-center setting(WindowsPC上でF9PとUSBでつないで)
+# F9P u-center setting　(WindowsPC上で)
 ## download u-center for Windows, v.21.09
 https://www.u-blox.com/sites/default/files/u-centersetup_v21.09.zip
 
 ### シリアルポートが認識されないとき
 https://www.ardusimple.com/com-ports-disappear-after-latest-windows-10-update-and-how-to-resolve-it/
-## Tools - Firmware Update - Firmwera image（HPG1.30) - go
+## Firmware Update 
+    Tools - Firmware Update - Firmwera image（HPG1.30) - go
 https://www.u-blox.com/en/ubx-viewer/view/UBX_F9_100_HPG130.aa1ce2137147f95bbde5532f1b495848.bin?url=https%3A%2F%2Fwww.u-blox.com%2Fsites%2Fdefault%2Ffiles%2FUBX_F9_100_HPG130.aa1ce2137147f95bbde5532f1b495848.bin
 
-## Tools - Receiver configurasion 
-  -Load configuration -Transferfile ->GNSS
-  ubx_f9p_HPG130_posned_pvt_5Hz.txt
+## Receiver configurasion 
+    Tools - Receiver configurasion -Load configuration -Transferfile ->GNSS
+[ubx_f9p_HPG130_posned_pvt_5Hz.txt](https://raw.githubusercontent.com/mnltake/lvglnavi/main/ubx_f9p_HPG130_posned_pvt_5Hz.txt)
 # 配線
 
 ## ラズパイ-F9P
@@ -83,7 +95,7 @@ https://www.u-blox.com/en/ubx-viewer/view/UBX_F9_100_HPG130.aa1ce2137147f95bbde5
 |[HAT](https://github.com/mnltake/simpleRTK2BpiHAT)|USB(ttyACM0)|←(ubx)|USB-POWER||GPIO UART0(ttyAMA0)|(RTCM)→|USB-XBEE|
 |RPi4|GPIO UART4(ttyAMA1)|←(ubx)|USB-POWER||GPIO UART0(ttyAMA0)|(RTCM)→|USB-XBEE|
 ## 3x4キーパッド
-　　BoardPin No.
+    BoardPin No.
     key_y = BoardPin No.(37 ,35 ,33 ,31 ) =GPIO No.(26 ,19 ,13, 6)
     key_x = BoardPin No. (29 ,23 ,21)    =GPIO No.(5 ,11 ,9 )
 ## 1x3スイッチ
@@ -98,7 +110,3 @@ https://www.u-blox.com/en/ubx-viewer/view/UBX_F9_100_HPG130.aa1ce2137147f95bbde5
 ## 作業機上昇リミットスイッチ
     BoardPin No. (25 ,19)    =GPIO No.(GND ,10)
 # 圃場SHP
-
-
-
-
