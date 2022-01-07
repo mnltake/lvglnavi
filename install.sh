@@ -2,9 +2,7 @@
 cd ~
 n=10
 echo 1/$n
-chmod +x *.py
-chmod +x .sh
-sudo apt update && apt upgrade 
+sudo apt update && sudo apt upgrade 
 
 echo 2/$n #RTKLIB
 cd ~
