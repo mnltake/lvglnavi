@@ -7,4 +7,5 @@ private_str2str-in.sh
 config.ini
 str2str-in.sh
 __pycache__/
+.vscode/
 
