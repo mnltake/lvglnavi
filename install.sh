@@ -1,6 +1,6 @@
 #!/bin/bash
 cd ~
-n=10
+n=8
 echo 1/$n
 sudo apt update 
 sudo apt upgrade -y
@@ -55,6 +55,8 @@ make -C mpy-cross -j4
 make -C ports/unix/ -j4
 sudo ln -f ./ports/unix/micropython /usr/local/bin/micropython
 
-# sudo nano /boot/config.txt
-# nano ~/lvglnavi/config.init.template
-# nano ~/lvglnavi/str2str-in.sh.template
+cd ~/lvglnavi
+echo Setting yourself
+echo nano ~/lvglnavi/config.init.template 
+echo nano ~/lvglnavi/str2str-in.sh.template
+echo sudo reboot
