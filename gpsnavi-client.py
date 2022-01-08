@@ -357,7 +357,7 @@ try:
                 print(touch_key)
 
         except:
-            pass
+            view = False
 #key入力時
 
         if ( key == 1 or touch_key == "A" ):
