@@ -60,7 +60,7 @@ https://forums.raspberrypi.com/viewtopic.php?t=323294&start=25
 
     jp utf-8
 
-### 解像度- 1280*720
+### 解像度- 1024*720
 
 ### Interface
 
