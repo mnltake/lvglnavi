@@ -313,7 +313,7 @@ try:
                 wcolorarw (strip , arw)
 #表示
 
-            if view == True  :
+            if view == False  :
                 if nq == 2:
                     print("\033[32m%s\033[0m" %fig) #green
                 elif nq == 1 :
