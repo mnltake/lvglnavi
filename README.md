@@ -113,9 +113,11 @@ https://www.u-blox.com/en/ubx-viewer/view/UBX_F9_100_HPG130.aa1ce2137147f95bbde5
 |  | RaspberryPi| ←（ubx-relposned pvt)| simpleRTK2B(F9P) || RaspberryPi| （RTCM）→| simpleRTK2B(F9P) |
 |:--------|-|-----------:|-|-----------:|------------:|-|-----------:|
 |**Default**|USB(ttyACM0)|←(ubx)|USB-POWER||USB(ttyUSB0)|(RTCM)→|USB-XBEE|
-|[HAT](https://github.com/mnltake/simpleRTK2BpiHAT)|USB(ttyACM0)|←(ubx)|USB-POWER||GPIO14-15 UART0(ttyAMA0)|(RTCM)→|UART2|
+|[HAT](https://github.com/mnltake/simpleRTK2BpiHAT) [注] |USB(ttyACM0)|←(ubx)|USB-POWER||GPIO14-15 UART0(ttyAMA0)|(RTCM)→|UART1|
 |RPi4|GPIO8-9 UART4(ttyAMA1)|←(ubx)|UART1||GPIO14-15 UART0(ttyAMA0)|(RTCM)→|UART2|
-## 3x4キーパッド
+
+[注]: ヒント　このときF9P　URAT2は空くのでUART2-OUT-NMEA を設定して[Bluetooth モジュール](https://akizukidenshi.com/catalog/g/gM-08690/)を挿すことで他のアプリでも測位データを使用できます（[AgribusNAVI](https://agri-info-design.com/agribus-navi/),[AGOpenGPS](https://github.com/farmerbriantee/AgOpenGPS/)）
+  ## 3x4キーパッド
 
     key_y = BoardPin No.(37 ,35 ,33 ,31 ) =GPIO No.(26 ,19 ,13, 6)
     key_x = BoardPin No. (29 ,23 ,21 )    =GPIO No.(5 ,11 ,9 )
