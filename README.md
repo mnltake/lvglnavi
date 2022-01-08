@@ -1,6 +1,7 @@
 # lvglnavi
 lvgl GUI guidance navigation
-[image](https://github.com/mnltake/lvglnavi/img/01.png)
+
+![image](https://github.com/mnltake/lvglnavi/blob/main/img/01.png?raw=true)
 
 # 用意するもの
 
