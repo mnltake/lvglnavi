@@ -227,6 +227,9 @@ https://www.ardusimple.com/question/running-u-center-on-mac-osx-wine/
 - sudo sytemctrl status str2str-in.service  でruningになっているか？
 - アンテナは受信できるところにあるか？
 - u-centerにつないでReceiver - NTRIP Client で補正情報を送ってみる
+- XBEE TX-XBEE RXをジャンパーでつないであるか?
+
+https://www.ardusimple.com/simplertk2b-hack-1-unleash-the-usb-power-of-simplertk2b/
 
 ### ./gpsnavi-server.sh を実行してメーター画面が出ない
 
