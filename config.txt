@@ -76,9 +76,9 @@ otg_mode=1
 [pi4]
 # Run as fast as firmware / board allows
 arm_boost=1
+dtoverlay=uart4
 
 [all]
 enable_uart=1
 dtoverlay=disable-bt
 
-gpu_mem=32
