@@ -136,8 +136,11 @@ https://www.realvnc.com/en/connect/download/viewer/
     BoardPin No. (25 ,19)    =GPIO No.(GND ,10)
 # 圃場SHP
     圃場SHP読み込み 
+    [QGIS](https://qgis.org/ja/site/)などを使って圃場ポリゴンを作り
     座標参照系 EPSG:4326 WGS84
     文字コード UTF-8
+    属性テーブルに以下のフィールドを追加します。
+    .dbfファイルを直接書き換えても可
     [0]連番[1]面積[2]ID[3]圃場名[5]A-lat[6]A-lon[7]B-lat[8]B-lon
 
 
@@ -162,9 +165,9 @@ https://www.realvnc.com/en/connect/download/viewer/
 
 ・機体の方位センサーは使っていないので手動で合わせます。通常のUターン作業では初めに合わせるだけです
 
-### c はなに？
+### c は何？
 ・基準線を平行にオフセットさせた数字です。「C」(3) ボタンを押すとその位置がガイダンス0cmにオフセットされます
-### 「P」(SHP)ボタン、「E」ボタン、圃場面積とは？
+### 「P」(SHP)ボタン、「E」ボタン、圃場面積とは何？
 
 ・圃場内に入ってから「P（SHP）」(#) ボタンを押すと　圃場SHPファイルに登録してある場合圃場面積が表示されます
 
@@ -174,13 +177,13 @@ https://www.realvnc.com/en/connect/download/viewer/
 
 ・LINE Notify API トークンが登録してある場合、LINEに圃場名と機体名の作業開始のメッセージを送ります
 
-### 作業面積とは？
+### 作業面積とは何？
 ・作業機下降を感知するスイッチを付けた場合、作業中の面積が加算されます。「M」(*) ボタンを押すとリセットされます(㎡)
 
-### 左上のXマークは？
+### 左上のXマークは何？
 ・シャットダウンスイッチです
 
-### 「S」 「W」 「H」 ボタンはなに？
+### 「S」 「W」 「H」 ボタンは何？
 ・「W」(5)を押すと作業幅が二倍にSを押すともとに戻ります
 
 ・隣接耕のときは「S」(4) 一本飛ばしの時は「W」を使います。(Single)(double)
@@ -190,7 +193,41 @@ https://www.realvnc.com/en/connect/download/viewer/
 ### 「R」ボタンは何？
 ・Yahoo API IDを登録してある時、その場所の1時間後までの降雨予想を表示します(Rain fall)
 
+### 「V」ボタンは何？
+・GUI（メーター）とCUI（レベルバー）の表示切り替えです。レベルバーはデフォルトでは1本4cmです
+
+### 外部ライトバーとは何？
+・WS2812BやSK6812内蔵のフルカラーシリアルLEDを繋ぐことでガイダンスを表示できます。
+ダブレット画面が直射日光下で見えづらいときに有効です。
 
 
 ### 画面上のボタンを押すとたまに動きが変です
 ・改良中です
+
+### WindowsPC以外でu-centerを使うには？
+・WINEを使います
+https://www.ardusimple.com/question/running-u-center-on-mac-osx-wine/
+
+
+#トラブルシュート
+
+### ./install.sh 中にエラーが出る
+
+- エラーメッセージをコピーしてIssuesに送ってください
+### simpleRTK2Bの [NO RTK] LEDが点灯したまま
+・RTK出来ていません。
+
+- 基準局は稼働していますか？
+- str2str-in.sh の設定は正しいですか？ パーミッションは変更しましたか？
+- sudo sytemctrl status str2str-in.service  でruningになっているか？
+- アンテナは受信できるところにありますか？
+- u-centerにつないでReceiver - NTRIP Client で補正情報を送ってみる
+
+### ./gpsnavi-server.sh を実行してメーター画面が出ない
+
+- micropythonが正しくインストール出来ていない
+  
+### ./gpsnavi-client.sh を実行してレベルバー画面が出ない
+
+- ubx 出力が正しくない。USBケーブルはデータ通信用か？
+- config.ini の設定は正しいか？
