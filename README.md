@@ -9,17 +9,17 @@ lvgl GUI guidance navigation
 
 ・simpleRTK2B - Basic Starter Kit based on u-blox ZED-F9P  
 
-    https://www.ardusimple.com/product/simplertk2b-basic-starter-kit-ip65/
+https://www.ardusimple.com/product/simplertk2b-basic-starter-kit-ip65/
 
 ・電源5V2.4A以上
 
 ・3x4キーパッド 
 
-    https://www.aitendo.com/product/3644
+https://www.aitendo.com/product/3644
 
 ・1x3スイッチ 
  
-    https://www.aitendo.com/product/11784
+https://www.aitendo.com/product/11784
 
 ・スマホ テザリング用
 
@@ -27,27 +27,27 @@ lvgl GUI guidance navigation
 
 ・RTK基準局補正情報
 
-    http://rtk.silentsystem.jp/
+http://rtk.silentsystem.jp/
 
 ・(オプション 作業記録用）LINE Notify アクセストークン 
  
-    https://notify-bot.line.me/ja/
+https://notify-bot.line.me/ja/
 
 ・(オプション 降雨予測用）Yahoo API ID 
 
-    https://developer.yahoo.co.jp/start/
+https://developer.yahoo.co.jp/start/
 
 ・(オプション 外部ライトバー）NeopixelLED
 
-    https://www.switch-science.com/catalog/5208/ 
-    https://qiita.com/m_take/items/e80735e860ce235c1a74
+https://www.switch-science.com/catalog/5208/ 
+https://qiita.com/m_take/items/e80735e860ce235c1a74
 
 # Raspberry Pi
 
 ## Raspberry Pi OS(Legasy) buster
 
     最新のBullseye だとDisplayなしでVNCを使うときは /boot/config.xtの設定が必要
-    https://forums.raspberrypi.com/viewtopic.php?t=323294&start=25
+https://forums.raspberrypi.com/viewtopic.php?t=323294&start=25
 
 ## raspi-config
 
