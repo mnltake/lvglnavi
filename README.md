@@ -15,11 +15,11 @@ https://www.ardusimple.com/product/simplertk2b-basic-starter-kit-ip65/
 
 ・電源5V2.4A以上
 
-・3x4キーパッド 
+・3x4キーパッド Navi 操作用
 
 https://www.aitendo.com/product/3644
 
-・1x3スイッチ 
+・1x3スイッチ Shutdown Button
  
 https://www.aitendo.com/product/11784
 
@@ -37,7 +37,7 @@ http://rtk2go.com:2104/
  
 https://notify-bot.line.me/ja/
 
-・(オプション 降雨予測用）Yahoo API ID 
+・(オプション 降雨予測用）Yahoo API ID
 
 https://developer.yahoo.co.jp/start/
 
@@ -47,7 +47,7 @@ https://www.switch-science.com/catalog/5208/
 
 https://qiita.com/m_take/items/e80735e860ce235c1a74
 
-# Raspberry Pi
+# Raspberry Pi 設定
 
 ## Raspberry Pi OS(Legasy) buster
 
@@ -56,7 +56,7 @@ https://forums.raspberrypi.com/viewtopic.php?t=323294&start=25
 
 ## raspi-config
 
-### Wifi /Locate 
+### Wifi /Locate
 
     jp utf-8
 
@@ -78,9 +78,9 @@ chmod +x *.sh
 chmod +x *.py
 ./install.sh
 nano config.ini.template
-変更して config.ini で保存
+# 変更して config.ini で保存
 nano str2str-in.sh.template
-変更して str2str-in.sh で保存
+# 変更して str2str-in.sh で保存
 sudo reboot
 ```
 
@@ -128,13 +128,64 @@ https://www.u-blox.com/en/ubx-viewer/view/UBX_F9_100_HPG130.aa1ce2137147f95bbde5
     前輪軸上中心がベスト
 ## タブレット取り付け
     VNC Viewer install
+https://www.realvnc.com/en/connect/download/viewer/
+
     目線やや上
-## 作業機上昇リミットスイッチ
+## ワークスイッチ
     作業面積計測用
     BoardPin No. (25 ,19)    =GPIO No.(GND ,10)
 # 圃場SHP
     圃場SHP読み込み 
-    座標参照系　EPSG:4326 WGS84
+    座標参照系 EPSG:4326 WGS84
     文字コード UTF-8
     [0]連番[1]面積[2]ID[3]圃場名[5]A-lat[6]A-lon[7]B-lat[8]B-lon
 
+
+# Q & A
+
+### これはなんですか？
+・**A点**「A」(1) ボタン　**B点**「B」(2)ボタン　を登録するとその**基準線**に作業幅分の平行線が引かれます。そのガイダンス線に対してアンテナの位置がどれだけ離れているかを表示します。
+### メーターは何？
+
+・***右（赤色）に針があるとき***ガイド線より左に寄っているので **ハンドルを右に回します**
+
+・***左（青色）に針があるとき***ガイド線より右に寄っているので **ハンドルを左に回します**
+
+・1目盛りが1cmで左右50cm以内で針が動きます。
+
+### 中央の数字は何？
+・ガイド線から基準線方向に近いときはマイナス、離れているときはプラスの距離を表示しています
+
+### 数字の下の矢印は何？
+
+・基準線の方向を示しています。もし逆をむいているときは「D」(6) ボタンを押して反転させます
+
+・機体の方位センサーは使っていないので手動で合わせます。通常のUターン作業では初めに合わせるだけです
+
+### c はなに？
+・基準線を平行にオフセットさせた数字です。「C」(3) ボタンを押すとその位置がガイダンス0cmにオフセットされます
+### 「P」(SHP)ボタン、「E」ボタン、圃場面積とは？
+・圃場内に入ってから「P（SHP）」(#) ボタンを押すと　圃場SHPファイルに登録してある場合圃場面積が表示されます
+・圃場にAB点が登録してある場合基準線が変更されます。
+・手動の基準線に替えたいたい場合は「E」(9)ボタンを押すと切り替わります（Exchange）
+
+### 作業面積とは？
+・作業機下降を感知するスイッチを付けた場合、作業中の面積が加算されます。「M」(*) ボタンを押すとリセットされます
+
+### 左上のXマークは？
+・シャットダウンスイッチです
+
+### 「S」 「W」 「H」 ボタンはなに？
+・「W」(5)を押すと作業幅が二倍にSを押すともとに戻ります
+
+・隣接耕のときは「S」(4) 一本飛ばしの時は「W」を使います。
+端までいったら「H」(0)を押すと2倍のHalf　つまり作業幅分オフセットされ残りの工程を作業します。
+
+
+### 「R」ボタンは何？
+・Yahoo API IDを登録してある時、その場所の1時間後までの降雨予想を表示します
+
+
+
+### 画面上のボタンを押すとたまに動きが変です
+・改良中です
