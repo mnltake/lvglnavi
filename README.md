@@ -130,6 +130,11 @@ https://www.u-blox.com/en/ubx-viewer/view/UBX_F9_100_HPG130.aa1ce2137147f95bbde5
     VNC Viewer install
 https://www.realvnc.com/en/connect/download/viewer/
 
+https://play.google.com/store/apps/details?id=com.realvnc.viewer.android&hl=ja
+
+FireタブレットにGoogle Playをインストールする方法【2022年版】
+https://ygkb.jp/6312
+
     目線やや上
 ## ワークスイッチ
     作業面積計測用
