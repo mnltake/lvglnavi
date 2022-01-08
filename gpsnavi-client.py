@@ -60,6 +60,8 @@ nx = 0;ny = 0;nq = 0;nh= 0
 I = '|'#level
 O = ' '
 view = True
+savelog = bool(read_default.get('savelog'))
+useNeopixel = bool(read_default.get('useNeopixel'))
 shpfile = read_default.get('shpfile')
 menseki  = 0;kyori = 0;menseki_total =0
 basellh = (float(read_default.get('baselat')),float(read_default.get('baselon')),float(read_default.get('baseh')))
@@ -93,16 +95,17 @@ else :
     key_y = (37 ,35 ,33 ,31 )
     key_x = (29 ,23 ,21)
 
-# neopixcel LED strip
-LED_COUNT      = 26     # Number of LED pixels.13
-LED_PIN        = 18      # GPIO pin connected to the pixels (18 uses PWM!)=Pin12(BOARD)
-LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
-LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
-LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
-LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
-LED_CHANNEL    = 0
-strip = PixelStrip(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
-strip.begin()
+if useNeopixel :
+    # neopixcel LED strip
+    LED_COUNT      = 26     # Number of LED pixels.13
+    LED_PIN        = 18      # GPIO pin connected to the pixels (18 uses PWM!)=Pin12(BOARD)
+    LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
+    LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
+    LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
+    LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
+    LED_CHANNEL    = 0
+    strip = PixelStrip(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
+    strip.begin()
 
 #座標取得
 def setpoint():
@@ -176,10 +179,11 @@ try:
         print("waiting NTP ")
         time.sleep(1)
     print("NTP synchro")
-    (folder,file)=make_file()
-    header ="JST,longitude,latitude,Height,gps_qual,gSpeed,errorarw\n"
-    with open(folder + file, "a", encoding = "utf-8") as fileobj:
-        fileobj.write(header)
+    if savelog :
+        (folder,file)=make_file()
+        header ="JST,longitude,latitude,Height,gps_qual,gSpeed,errorarw\n"
+        with open(folder + file, "a", encoding = "utf-8") as fileobj:
+            fileobj.write(header)
     while True:
         try:
             s.connect((HOST, PORT))
@@ -305,7 +309,8 @@ try:
                 resttime = -99
 
 #neopixcel LED
-#            wcolorarw (strip , arw)
+            if useNeopixel:
+                wcolorarw (strip , arw)
 #表示
 
             if view == True  :
@@ -334,10 +339,11 @@ try:
             #     else :
             #         print("\033[31m%s\033[0m" %fig)
 # # ファイル保存
-            # try:
-            #     write_file(nowmsg,errorarw)
-            # except:
-            #     pass
+            if savelog :
+                try:
+                    write_file(nowmsg,errorarw)
+                except:
+                    pass
 # socket send recv
         try:
             buff=b''
