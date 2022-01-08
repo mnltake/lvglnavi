@@ -29,6 +29,8 @@ https://www.aitendo.com/product/11784
 
 http://rtk.silentsystem.jp/
 
+http://rtk2go.com:2104/
+
 ・(オプション 作業記録用）LINE Notify アクセストークン 
  
 https://notify-bot.line.me/ja/
@@ -39,7 +41,8 @@ https://developer.yahoo.co.jp/start/
 
 ・(オプション 外部ライトバー）NeopixelLED
 
-https://www.switch-science.com/catalog/5208/ 
+https://www.switch-science.com/catalog/5208/
+
 https://qiita.com/m_take/items/e80735e860ce235c1a74
 
 # Raspberry Pi
@@ -99,6 +102,8 @@ https://www.u-blox.com/en/ubx-viewer/view/UBX_F9_100_HPG130.aa1ce2137147f95bbde5
     Tools - Receiver configurasion -Load configuration -Transferfile ->GNSS
 [ubx_f9p_HPG130_posned_pvt_5Hz.txt](https://raw.githubusercontent.com/mnltake/lvglnavi/main/ubx_f9p_HPG130_posned_pvt_5Hz.txt)
 
+    View - Configuration View(Ctrl+F9) 
+    - CFG(Configuration) - [0-BBR 1-FLASH 2-I2C-EEPROM 4-SPI-FLASH] - Send
 # 配線
 
 ## ラズパイ-F9P
@@ -120,11 +125,14 @@ https://www.u-blox.com/en/ubx-viewer/view/UBX_F9_100_HPG130.aa1ce2137147f95bbde5
 ## アンテナ
     前輪軸上中心がベスト
 ## タブレット取り付け
+    VNC Viewer install
     目線やや上
 ## 作業機上昇リミットスイッチ
     作業面積計測用
     BoardPin No. (25 ,19)    =GPIO No.(GND ,10)
 # 圃場SHP
     圃場SHP読み込み 
+    座標参照系　EPSG:4326 WGS84
+    文字コード UTF-8
     [0]連番[1]面積[2]ID[3]圃場名[5]A-lat[6]A-lon[7]B-lat[8]B-lon
 
