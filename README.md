@@ -118,9 +118,9 @@ https://www.u-blox.com/en/ubx-viewer/view/UBX_F9_100_HPG130.aa1ce2137147f95bbde5
 ## 3x4キーパッド
 
     key_y = BoardPin No.(37 ,35 ,33 ,31 ) =GPIO No.(26 ,19 ,13, 6)
-    key_x = BoardPin No. (29 ,23 ,21)    =GPIO No.(5 ,11 ,9 )
+    key_x = BoardPin No. (29 ,23 ,21 )    =GPIO No.(5 ,11 ,9 )
 ## 1x3スイッチ
-    BoardPin No. (9 ,5 ,7 ,11)    =GPIO No.(GND ,3 ,4 ,17 )
+    BoardPin No. (9 ,5 ,7 ,11 )    =GPIO No.(GND ,3 ,4 ,17 )
 
 ## 電源
     車載の場合キーON やACCでなくバッテリー直結でヒューズ-スイッチ-DC-DC降圧-USBコネクタ
@@ -138,7 +138,7 @@ https://ygkb.jp/6312
     目線やや上
 ## ワークスイッチ
     作業面積計測用
-    BoardPin No. (25 ,19)    =GPIO No.(GND ,10)
+    BoardPin No. (25 ,19 )    =GPIO No.(GND ,10 )
 # 圃場SHP
     圃場SHP読み込み 
     [QGIS](https://qgis.org/ja/site/)などを使って圃場ポリゴンを作り
