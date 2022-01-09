@@ -59,7 +59,7 @@ nav = 0
 nx = 0;ny = 0;nq = 0;nh= 0
 I = '|'#level
 O = ' '
-view = True
+GUIview = True
 savelog = bool(read_default.get('savelog'))
 useNeopixel = bool(read_default.get('useNeopixel'))
 shpfile = read_default.get('shpfile')
@@ -313,7 +313,7 @@ try:
                 wcolorarw (strip , arw)
 #表示
 
-            if view == False  :
+            if GUIview == False  :
                 if nq == 2:
                     print("\033[32m%s\033[0m" %fig) #green
                 elif nq == 1 :
@@ -357,7 +357,7 @@ try:
                 print(touch_key)
 
         except:
-            view = False
+            GUIview = False
 #key入力時
 
         if ( key == 1 or touch_key == "A" ):
@@ -430,8 +430,8 @@ try:
 #            time.sleep(2)
 
         elif ( key == 7 or touch_key == "V"): #表示切り替え
-            view = not(view)
-            if view:
+            GUIview = not(GUIview)
+            if GUIview:
                 os.system('wmctrl -a "TFT Simulator"' )
             else :
                 os.system('wmctrl -a "sudo"' )
