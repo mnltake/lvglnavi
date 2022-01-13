@@ -80,5 +80,5 @@ dtoverlay=uart4
 
 [all]
 enable_uart=1
-dtoverlay=miniuart-bt
-core_freq=250
+dtoverlay=disable-bt  
+
