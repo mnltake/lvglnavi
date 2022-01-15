@@ -150,6 +150,25 @@ https://ygkb.jp/6312
     .dbfファイルを直接書き換えても可
     [0]連番[1]面積[2]ID[3]圃場名[5]A-lat[6]A-lon[7]B-lat[8]B-lon
 
+# 起動確認
+
+```
+cd ~/lvglnavi
+DISPLAY=:0 ./gpsnavi-server.sh
+```
+
+実行してメーター画面が表示されたあとでclientを実行
+
+```
+./gpsnavi-client.sh
+```
+
+成功したら自動起動を設定します
+
+```
+ cd ~/lvglnavi
+ ./autostartGUI.sh
+```
 
 # Q & A
 
