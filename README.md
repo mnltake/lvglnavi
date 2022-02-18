@@ -1,5 +1,6 @@
 # lvglnavi
 lvgl GUI guidance navigation
+農業用のRTK-GPS / GNSS直進ガイダンス
 
 ![image](https://github.com/mnltake/lvglnavi/blob/main/img/01.png?raw=true)
 
