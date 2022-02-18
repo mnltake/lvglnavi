@@ -4,6 +4,8 @@ lvgl GUI guidance navigation
 
 ![image](https://github.com/mnltake/lvglnavi/blob/main/img/01.png?raw=true)
 
+![image](https://github.com/mnltake/lvglnavi/blob/main/img/system.png?raw=true)
+
 # 用意するもの
 
 ・ラズパイ3以上（3B,3A+で動作確認済み）
