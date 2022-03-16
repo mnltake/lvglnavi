@@ -47,6 +47,7 @@ _ax = 0;_ay = 0;_bx = 1;_by = 0;_rad = 0;_ABsin =0;_ABcos =1
 aax = 0;aay = 0;bbx = 0;bby = 0;rrad = 0;AABBsin =0; AABBcos =1
 base = False
 area = 0
+tansyu =0
 c = 0 #offset cm →｜←
 Direction = bool(read_default.get('Direction'))
 #Direction = True  #マーカー方向　枕2工程 :False  枕3工程 ：True
@@ -323,7 +324,7 @@ try:
                 print("\033[35m    Nav %+4d cm   工程 %d\033[0m" %(nav,koutei))
                 print("  幅=%3d   LINE %s %s　" %(wide,revfig,blf))
                 print("  c=%3d　%4.2f km/h "  %(c,spd*3.6))
-                print("　残り　%3d 分" %resttime)
+                print("　残り%3d 分 反収%3d" %(resttime,tansyu))
                 #print("　GPSTIME　%d ms" %nowmsg['iTow'])
                 if ( GPIO.input( key_u ) == 0 ):
                     print("　圃場=%4d㎡\033[35m作業＝%4d㎡\033[0m" %(area,menseki))
@@ -480,6 +481,8 @@ try:
                         c = -wide /2 -margin #枕+1工程から開始
                         menseki = 0
                         d = Direction
+                        if shpdata[10]:
+                            tansyu = int(shpdata[10])
                         line_bot_message =roverName +'が[' + shpdata[3] +']の作業を始めました'
                         print("Auto Set Line")
                         bot.send(message=line_bot_message,)
