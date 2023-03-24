@@ -50,7 +50,7 @@ hdmi_mode=16
 # Additional overlays and parameters are documented /boot/overlays/README
 
 # Enable audio (loads snd_bcm2835)
-dtparam=audio=on
+#dtparam=audio=on
 
 # Automatically load overlays for detected cameras
 camera_auto_detect=1
