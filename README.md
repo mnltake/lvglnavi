@@ -54,8 +54,10 @@ https://qiita.com/m_take/items/e80735e860ce235c1a74
 
 ## Raspberry Pi OS(Legasy) buster
 
-    最新のBullseye だとDisplayなしでVNCを使うときは /boot/config.xtの設定が必要
-https://forums.raspberrypi.com/viewtopic.php?t=323294&start=25
+   ~最新のBullseye だとDisplayなしでVNCを使うときは /boot/config.xtの設定が必要~
+ ~https://forums.raspberrypi.com/viewtopic.php?t=323294&start=25~
+ 
+ 今（2023.3）は　[raspbeyyi pi の設定]-[ディスプレイ] - [ヘッドレス解像度]の設定が出来るようになっているのでBullseye でも問題なし
 
 ## raspi-config
 
