@@ -295,7 +295,7 @@ try:
             spd = nowmsg["gSpeed"] /1000 #m/s
             sz = spd /5
 #作業面積計算
-            if ( GPIO.input( key_u ) == 0 ):
+            if ( GPIO.input( key_u ) == 1 ):
                 menseki += sz * WIDE * 0.01 #m2
                 kyori += sz #m
                 menseki_total += sz * WIDE * 0.01 #m2
