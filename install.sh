@@ -43,8 +43,10 @@ echo 8/$n #lvgl micropython
 cd ~
 sudo apt install build-essential libreadline-dev libffi-dev git pkg-config libsdl2-2.0-0 libsdl2-dev parallel wmctrl -y
 git clone --recurse-submodules https://github.com/lvgl/lv_micropython.git
-cd ~/lvglnavi/
+cd ~/lv_micropython
 git checkout d8a68915baa797d02b24f12c2112ff02ac201681
+git submodule update --init --recursive
+cd ~/lvglnavi/
 # mv ./lv_conf.h ~/lv_micropython/lib/lv_bindings/lv_conf.h
 cp -f ./lv_drv_conf.h ~/lv_micropython/lib/lv_bindings/driver/SDL/lv_drv_conf.h
 # mv ./SDL_monitor.c ~/lv_micropython/lib/lv_bindings/driver/SDL/SDL_monitor.c
