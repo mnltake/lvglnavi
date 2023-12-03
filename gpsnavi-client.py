@@ -13,7 +13,7 @@ pymap3d log
 line bot
 rainfall
 socket client
-
+IP address LINE send
 pip3 install pyshp Shapely pymap3d rpi_ws281x
 '''
 import configparser
@@ -32,7 +32,7 @@ from readUBX import readUBX
 from line_notify_bot import LINENotifyBot
 from rainfall import rainfall
 import socket,struct
-
+import ipget
 config_ini = configparser.ConfigParser()
 config_ini.read('./config.ini', encoding='utf-8')
 read_default = config_ini['DEFAULT']
@@ -192,6 +192,10 @@ try:
             pass
         else:
             break
+    # ip address LINE send
+    ip_address = ipget.ipget()
+    line_bot_message =f"IP Address: {ip_address.ipaddr('wlan0')}"
+    bot.send(message=line_bot_message,)
     os.system('wmctrl -a "TFT Simulator"' )
     while True:
         
