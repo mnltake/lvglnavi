@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 '''
-2021
+20231203
 config.ini
 圃場SHP読み込み getshp
 [0]連番[1]面積[2]ID[3]圃場名[5]A-lat[6]A-lon[7]B-lat[8]B-lon
@@ -13,7 +13,7 @@ pymap3d log
 line bot
 rainfall
 socket client
-
+import ipget
 pip3 install pyshp Shapely pymap3d rpi_ws281x
 '''
 import configparser
@@ -31,7 +31,7 @@ from neopixel_arw import colorarw,wcolorarw
 from readUBX import readUBX
 from line_notify_bot import LINENotifyBot
 from rainfall import rainfall
-import socket,struct
+import socket,struct,ipget
 
 config_ini = configparser.ConfigParser()
 config_ini.read('./config.ini', encoding='utf-8')
@@ -187,6 +187,11 @@ try:
             pass
         else:
             break
+    # ip address LINE send
+    ip_address = ipget.ipget()
+    line_bot_message =f"IP Address: {ip_address.ipaddr('wlan0')}"
+    bot.send(message=line_bot_message,)
+    
     os.system('wmctrl -a "TFT Simulator"' )
     while True:
         
