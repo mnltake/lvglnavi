@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 '''
-20231203
+2024
 config.ini
 圃場SHP読み込み getshp
 [0]連番[1]面積[2]ID[3]圃場名[5]A-lat[6]A-lon[7]B-lat[8]B-lon
@@ -15,6 +15,7 @@ rainfall
 socket client
 import ipget
 pip3 install pyshp Shapely pymap3d rpi_ws281x
+ip LINE send
 '''
 import configparser
 import time ,os ,math ,serial
@@ -59,7 +60,7 @@ nav = 0
 nx = 0;ny = 0;nq = 0;nh= 0
 I = '|'#level
 O = ' '
-view = True
+view = False
 shpfile = read_default.get('shpfile')
 menseki  = 0;kyori = 0;menseki_total =0
 basellh = (float(read_default.get('baselat')),float(read_default.get('baselon')),float(read_default.get('baseh')))
@@ -176,6 +177,12 @@ try:
         print("waiting NTP ")
         time.sleep(1)
     print("NTP synchro")
+    
+    # ip address LINE send
+    ip_address = ipget.ipget()
+    line_bot_message =f"IP Address: {ip_address.ipaddr('wlan0')}"
+    bot.send(message=line_bot_message,)
+    
     (folder,file)=make_file()
     header ="JST,longitude,latitude,Height,gps_qual,gSpeed,errorarw\n"
     with open(folder + file, "a", encoding = "utf-8") as fileobj:
@@ -187,11 +194,6 @@ try:
             pass
         else:
             break
-    # ip address LINE send
-    ip_address = ipget.ipget()
-    line_bot_message =f"IP Address: {ip_address.ipaddr('wlan0')}"
-    bot.send(message=line_bot_message,)
-    
     os.system('wmctrl -a "TFT Simulator"' )
     while True:
         
@@ -295,7 +297,7 @@ try:
             spd = nowmsg["gSpeed"] /1000 #m/s
             sz = spd /5
 #作業面積計算
-            if ( GPIO.input( key_u ) == 1 ):
+            if ( GPIO.input( key_u ) == 0 ):
                 menseki += sz * WIDE * 0.01 #m2
                 kyori += sz #m
                 menseki_total += sz * WIDE * 0.01 #m2
@@ -325,7 +327,7 @@ try:
                 print("  c=%3d　%4.2f km/h "  %(c,spd*3.6))
                 print("　残り　%3d 分" %resttime)
                 #print("　GPSTIME　%d ms" %nowmsg['iTow'])
-                if ( GPIO.input( key_u ) == 1):
+                if ( GPIO.input( key_u ) == 0):
                     print("　圃場=%4d㎡\033[35m作業＝%4d㎡\033[0m" %(area,menseki))
                 else :
                     print("　圃場=%4d㎡作業＝%4d㎡" %(area,menseki))
