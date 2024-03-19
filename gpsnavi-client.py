@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 '''
-2021
+2024
 config.ini
 圃場SHP読み込み getshp
 [0]連番[1]面積[2]ID[3]圃場名[5]A-lat[6]A-lon[7]B-lat[8]B-lon
@@ -13,8 +13,9 @@ pymap3d log
 line bot
 rainfall
 socket client
-IP address LINE send
+import ipget
 pip3 install pyshp Shapely pymap3d rpi_ws281x
+ip LINE send
 '''
 import configparser
 import time ,os ,math ,serial
@@ -31,8 +32,8 @@ from neopixel_arw import colorarw,wcolorarw
 from readUBX import readUBX
 from line_notify_bot import LINENotifyBot
 from rainfall import rainfall
-import socket,struct
-import ipget
+import socket,struct,ipget
+
 config_ini = configparser.ConfigParser()
 config_ini.read('./config.ini', encoding='utf-8')
 read_default = config_ini['DEFAULT']
@@ -47,7 +48,6 @@ _ax = 0;_ay = 0;_bx = 1;_by = 0;_rad = 0;_ABsin =0;_ABcos =1
 aax = 0;aay = 0;bbx = 0;bby = 0;rrad = 0;AABBsin =0; AABBcos =1
 base = False
 area = 0
-tansyu =0
 c = 0 #offset cm →｜←
 Direction = bool(read_default.get('Direction'))
 #Direction = True  #マーカー方向　枕2工程 :False  枕3工程 ：True
@@ -60,9 +60,7 @@ nav = 0
 nx = 0;ny = 0;nq = 0;nh= 0
 I = '|'#level
 O = ' '
-GUIview = True
-savelog = bool(read_default.get('savelog'))
-useNeopixel = bool(read_default.get('useNeopixel'))
+view = False
 shpfile = read_default.get('shpfile')
 menseki  = 0;kyori = 0;menseki_total =0
 basellh = (float(read_default.get('baselat')),float(read_default.get('baselon')),float(read_default.get('baseh')))
@@ -96,17 +94,16 @@ else :
     key_y = (37 ,35 ,33 ,31 )
     key_x = (29 ,23 ,21)
 
-if useNeopixel :
-    # neopixcel LED strip
-    LED_COUNT      = 26     # Number of LED pixels.13
-    LED_PIN        = 18      # GPIO pin connected to the pixels (18 uses PWM!)=Pin12(BOARD)
-    LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
-    LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
-    LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
-    LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
-    LED_CHANNEL    = 0
-    strip = PixelStrip(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
-    strip.begin()
+# neopixcel LED strip
+LED_COUNT      = 26     # Number of LED pixels.13
+LED_PIN        = 18      # GPIO pin connected to the pixels (18 uses PWM!)=Pin12(BOARD)
+LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
+LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
+LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
+LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
+LED_CHANNEL    = 0
+strip = PixelStrip(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
+strip.begin()
 
 #座標取得
 def setpoint():
@@ -180,11 +177,16 @@ try:
         print("waiting NTP ")
         time.sleep(1)
     print("NTP synchro")
-    if savelog :
-        (folder,file)=make_file()
-        header ="JST,longitude,latitude,Height,gps_qual,gSpeed,errorarw\n"
-        with open(folder + file, "a", encoding = "utf-8") as fileobj:
-            fileobj.write(header)
+    
+    # ip address LINE send
+    ip_address = ipget.ipget()
+    line_bot_message =f"IP Address: {ip_address.ipaddr('wlan0')}"
+    bot.send(message=line_bot_message,)
+    
+    (folder,file)=make_file()
+    header ="JST,longitude,latitude,Height,gps_qual,gSpeed,errorarw\n"
+    with open(folder + file, "a", encoding = "utf-8") as fileobj:
+        fileobj.write(header)
     while True:
         try:
             s.connect((HOST, PORT))
@@ -192,10 +194,6 @@ try:
             pass
         else:
             break
-    # ip address LINE send
-    ip_address = ipget.ipget()
-    line_bot_message =f"IP Address: {ip_address.ipaddr('wlan0')}"
-    bot.send(message=line_bot_message,)
     os.system('wmctrl -a "TFT Simulator"' )
     while True:
         
@@ -299,7 +297,7 @@ try:
             spd = nowmsg["gSpeed"] /1000 #m/s
             sz = spd /5
 #作業面積計算
-            if ( GPIO.input( key_u ) == 1 ):
+            if ( GPIO.input( key_u ) == 0 ):
                 menseki += sz * WIDE * 0.01 #m2
                 kyori += sz #m
                 menseki_total += sz * WIDE * 0.01 #m2
@@ -314,11 +312,10 @@ try:
                 resttime = -99
 
 #neopixcel LED
-            if useNeopixel:
-                wcolorarw (strip , arw)
+#            wcolorarw (strip , arw)
 #表示
 
-            if GUIview == False  :
+            if view == False :
                 if nq == 2:
                     print("\033[32m%s\033[0m" %fig) #green
                 elif nq == 1 :
@@ -328,9 +325,9 @@ try:
                 print("\033[35m    Nav %+4d cm   工程 %d\033[0m" %(nav,koutei))
                 print("  幅=%3d   LINE %s %s　" %(wide,revfig,blf))
                 print("  c=%3d　%4.2f km/h "  %(c,spd*3.6))
-                print("　残り%3d 分 反収%3d" %(resttime,tansyu))
+                print("　残り　%3d 分" %resttime)
                 #print("　GPSTIME　%d ms" %nowmsg['iTow'])
-                if ( GPIO.input( key_u ) == 0 ):
+                if ( GPIO.input( key_u ) == 0):
                     print("　圃場=%4d㎡\033[35m作業＝%4d㎡\033[0m" %(area,menseki))
                 else :
                     print("　圃場=%4d㎡作業＝%4d㎡" %(area,menseki))
@@ -344,25 +341,25 @@ try:
             #     else :
             #         print("\033[31m%s\033[0m" %fig)
 # # ファイル保存
-            if savelog :
-                try:
-                    write_file(nowmsg,errorarw)
-                except:
-                    pass
+            # try:
+            #     write_file(nowmsg,errorarw)
+            # except:
+            #     pass
 # socket send recv
         try:
             buff=b''
-            buff=struct.pack("hhHHhiIIbb",int(arw),int(nav),int(koutei),int(wide),int(rev),int(c),int(area),int(menseki),int(base),int(key))
+            buff=struct.pack("hhHHhhIIbb",int(arw),int(nav),int(koutei),int(wide),int(rev),int(c),int(area),int(menseki),int(base),int(key))
             s.sendall(buff)
-            # print(len(buff))
+            # print(buff)
             rbuff= s.recv(1)
             rcv_key=struct.unpack("s",rbuff)
             touch_key=str(rcv_key[0],encoding='utf-8')
-            if not(touch_key):
+            if not(touch_key=="0"):
                 print(touch_key)
+                time.sleep(0.1)
 
         except:
-            GUIview = False
+            pass
 #key入力時
 
         if ( key == 1 or touch_key == "A" ):
@@ -412,7 +409,7 @@ try:
                 c +=  nav
                 print("C-PointSet　%6.2f" %c)
                 time.sleep(1)
-        elif ( key == 9 or touch_key == "E"): #Ex 基準線交換
+        elif ( key == 9 ): #Ex 基準線交換
                 base = not(base)
                 print("基準線を変更しました" )
                 time.sleep(1)
@@ -435,8 +432,8 @@ try:
 #            time.sleep(2)
 
         elif ( key == 7 or touch_key == "V"): #表示切り替え
-            GUIview = not(GUIview)
-            if GUIview:
+            view = not(view)
+            if view:
                 os.system('wmctrl -a "TFT Simulator"' )
             else :
                 os.system('wmctrl -a "sudo"' )
@@ -485,8 +482,6 @@ try:
                         c = -wide /2 -margin #枕+1工程から開始
                         menseki = 0
                         d = Direction
-                        if shpdata[10]:
-                            tansyu = int(shpdata[10])
                         line_bot_message =roverName +'が[' + shpdata[3] +']の作業を始めました'
                         print("Auto Set Line")
                         bot.send(message=line_bot_message,)
@@ -500,6 +495,3 @@ try:
                 time.sleep(1)
                 os.system('wmctrl -a "TFT Simulator"' )
 
-except KeyboardInterrupt:
-    os.system('wmctrl -c "TFT Simulator"' )
-GPIO.cleanup()
