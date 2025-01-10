@@ -41,4 +41,9 @@ line_access_token= ********************************
 # Yahoo API ID https://developer.yahoo.co.jp/sitemap/
 yahoo_crient_id = $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
+# influxdata 
+influxdb_token= @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+influxdb_org = your_mail_address
+influxdb_host = https://us-east-1-1.aws.cloud2.influxdata.com
+influxdb_database = gpslog
 # config.ini に名前を変えて保存

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 '''
-2024
+2025
 config.ini
 圃場SHP読み込み getshp
 [0]連番[1]面積[2]ID[3]圃場名[5]A-lat[6]A-lon[7]B-lat[8]B-lon
@@ -16,6 +16,7 @@ socket client
 import ipget
 pip3 install pyshp Shapely pymap3d rpi_ws281x
 ip LINE send
+influxdb_client_3 
 '''
 import configparser
 import time ,os ,math ,serial
@@ -33,6 +34,8 @@ from readUBX import readUBX
 from line_notify_bot import LINENotifyBot
 from rainfall import rainfall
 import socket,struct,ipget
+from influxdb_client_3 import InfluxDBClient3
+from influxdb_client_3 import Point as InfluxPoint
 
 config_ini = configparser.ConfigParser()
 config_ini.read('./config.ini', encoding='utf-8')
@@ -43,6 +46,13 @@ wide = WIDE
 margin = int(read_default.get('margin'))
 ubxPort = str(read_default.get('ubxPort'))
 ubxRate = int(read_default.get('ubxRate'))
+
+influxdb_token = str(read_default.get('influxdb_token'))
+influxdb_org = str(read_default.get('influxdb_org'))
+influxdb_host = str(read_default.get('influxdb_host'))
+influxdb_client = InfluxDBClient3(host=influxdb_host, token=influxdb_token, org=influxdb_org)
+influxdb_database = str(read_default.get('influxdb_database'))
+
 ax = 0 ;ay = 0;bx = 1 ;by = 0 ;ABsin =0; ABcos = 1
 _ax = 0;_ay = 0;_bx = 1;_by = 0;_rad = 0;_ABsin =0;_ABcos =1
 aax = 0;aay = 0;bbx = 0;bby = 0;rrad = 0;AABBsin =0; AABBcos =1
@@ -483,8 +493,16 @@ try:
                         menseki = 0
                         d = Direction
                         line_bot_message =roverName +'が[' + shpdata[3] +']の作業を始めました'
-                        print("Auto Set Line")
                         bot.send(message=line_bot_message,)
+                        # InfluxDBに書き込み
+                        influxdb_point = (
+                            InfluxPoint("gpslog")
+                            .tag("rovername", roverName)
+                            .field("圃場", shpdata[3] )
+                        )
+                        influxdb_client.write(database=influxdb_database, record=influxdb_point)
+                        print("Auto Set Line")
+                    
                     time.sleep(1)
                 else :
                     area = 0

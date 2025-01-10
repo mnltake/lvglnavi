@@ -10,3 +10,9 @@ __pycache__/
 .vscode/
 
 
+stackchan.png
+linemessage.png
+query.py
+ascii.py
+influx_send.py
+line_broadcast_message.py
