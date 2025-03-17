@@ -34,7 +34,8 @@ sudo systemctl enable shutdownbuttond.service
 echo 6/$n #shp
 sudo apt install libgeos-dev python3-numpy -y
 sudo pip3 install pyshp Shapely pymap3d ipget
-
+echo 6.1/$n #influxdb
+sudo pip3 install 'influxdb-client[ciso]'
 echo 7/$n #GPIO UART
 sudo cp -fb  ./config.txt /boot/config.txt
 sudo systemctl disable hciuart
