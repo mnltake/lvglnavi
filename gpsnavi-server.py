@@ -249,19 +249,25 @@ cl, addr = s.accept()
 print('client connected ')
 
 while True:
+    try:
         navi_buff = cl.recv(26)
-        key_buff=pack("s",touch_key)
+        if not navi_buff:
+            print('client disconnected')
+            break
+
+        key_buff = pack("s", touch_key.encode('utf-8'))
         cl.send(key_buff)
-        touch_key ="0"
+        touch_key = "0"
+        
         if navi_buff:
             newmsg=unpack('hhHHhiIIbb',navi_buff)
             for i in range(10):
                 if (newmsg[i] == oldmsg[i]):
-                    delta[i]=False
-                else :
-                    delta[i]=True
-    
-            meter.set_indicator_value(indic, int(newmsg[0])+50)
+                    delta[i] = False
+                else:
+                    delta[i] = True
+
+            meter.set_indicator_value(indic, int(newmsg[0]) + 50)
             if newmsg[0] < 0:
                 style1.set_text_color(lv.palette_darken(lv.PALETTE.BLUE, 4))
             elif newmsg[0] > 0:
@@ -271,28 +277,33 @@ while True:
 
             if newmsg[9] == 0:
                 if delta[1]:
-                    label1.set_text("  %+4d ㎝"%newmsg[1])
+                    label1.set_text("  %+4d ㎝" % newmsg[1])
                 if delta[2]:
-                    label2.set_text("工程 :%d" %newmsg[2])
+                    label2.set_text("工程 :%d" % newmsg[2])
                 if delta[3]:
-                    label3.set_text("幅 :%d㎝" %newmsg[3])
-                # label4.set_text("rev :%d" %newmsg[4])
+                    label3.set_text("幅 :%d㎝" % newmsg[3])
                 if delta[5]:
-                    label5.set_text("c:%d㎝" %newmsg[5])
+                    label5.set_text("c:%d㎝" % newmsg[5])
                 if delta[6]:
-                    label6.set_text("圃場面積 :%4d㎡" %newmsg[6])
+                    label6.set_text("圃場面積 :%4d㎡" % newmsg[6])
                 if delta[7]:
-                    label7.set_text("作業面積 :%4d㎡" %newmsg[7])
+                    label7.set_text("作業面積 :%4d㎡" % newmsg[7])
                 
-                if newmsg[4] < 0 :
-                    label8.set_text("→" ) 
+                if newmsg[4] < 0:
+                    label8.set_text("→")
                 else:
-                    label8.set_text("←" ) 
-                #label9.set_text("速度 :%.2fm/s" %navidata[10])
+                    label8.set_text("←")
             else:
-                key=newmsg[9]
-                label1.set_text("%s pressed"%keyname[key])
+                key = newmsg[9]
+                label1.set_text("%s pressed" % keyname[key])
 
             oldmsg = newmsg
-# except:
-#     cl.close()
+    except OSError as e:
+        print(f'OSError: {e}')
+        break
+    except Exception as e:
+        print(f'Unexpected error: {e}')
+        break
+
+cl.close()
+s.close()

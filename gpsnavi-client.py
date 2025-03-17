@@ -16,7 +16,7 @@ socket client
 import ipget
 pip3 install pyshp Shapely pymap3d rpi_ws281x
 ip LINE send
-influxdb_client_3 
+influxdb_client 
 '''
 import configparser
 import time ,os ,math ,serial
@@ -32,15 +32,18 @@ from rpi_ws281x import PixelStrip, Color
 from neopixel_arw import colorarw,wcolorarw
 from readUBX import readUBX
 from line_notify_bot import LINENotifyBot
+from line_broadcast_message import LINEBroadcastBot
 from rainfall import rainfall
 import socket,struct,ipget
-from influxdb_client_3 import InfluxDBClient3
-from influxdb_client_3 import Point as InfluxPoint
+from influxdb_client import InfluxDBClient
+from influxdb_client import Point as InfluxPoint
+from influxdb_client.client.write_api import SYNCHRONOUS
 
 config_ini = configparser.ConfigParser()
 config_ini.read('./config.ini', encoding='utf-8')
 read_default = config_ini['DEFAULT']
 roverName = str(read_default.get('roverName'))
+workname = str(read_default.get('workname'))
 WIDE =int(read_default.get('WIDE'))
 wide = WIDE
 margin = int(read_default.get('margin'))
@@ -50,9 +53,9 @@ ubxRate = int(read_default.get('ubxRate'))
 influxdb_token = str(read_default.get('influxdb_token'))
 influxdb_org = str(read_default.get('influxdb_org'))
 influxdb_host = str(read_default.get('influxdb_host'))
-influxdb_client = InfluxDBClient3(host=influxdb_host, token=influxdb_token, org=influxdb_org)
+influxdb_client = InfluxDBClient(url=influxdb_host, token=influxdb_token, org=influxdb_org)
 influxdb_database = str(read_default.get('influxdb_database'))
-
+influxdb_write_api = influxdb_client.write_api(write_options=SYNCHRONOUS)
 ax = 0 ;ay = 0;bx = 1 ;by = 0 ;ABsin =0; ABcos = 1
 _ax = 0;_ay = 0;_bx = 1;_by = 0;_rad = 0;_ABsin =0;_ABcos =1
 aax = 0;aay = 0;bbx = 0;bby = 0;rrad = 0;AABBsin =0; AABBcos =1
@@ -85,8 +88,11 @@ s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 
 #LINE bot token
-line_access_token=read_default.get('line_access_token')
-bot = LINENotifyBot(access_token=line_access_token)
+# line_access_token=read_default.get('line_access_token')
+# bot = LINENotifyBot(access_token=line_access_token)
+#LINE messageAPI
+line_messageAPI_access_token = read_default.get('line_messageAPI_access_token')
+bot = LINEBroadcastBot(access_token=line_messageAPI_access_token)
 # yahoo APIを使うためのKEY
 crient_id = read_default.get('yahoo_crient_id')
 
@@ -358,7 +364,7 @@ try:
 # socket send recv
         try:
             buff=b''
-            buff=struct.pack("hhHHhhIIbb",int(arw),int(nav),int(koutei),int(wide),int(rev),int(c),int(area),int(menseki),int(base),int(key))
+            buff=struct.pack("hhHHhiIIbb",int(arw),int(nav),int(koutei),int(wide),int(rev),int(c),int(area),int(menseki),int(base),int(key))
             s.sendall(buff)
             # print(buff)
             rbuff= s.recv(1)
@@ -492,15 +498,12 @@ try:
                         c = -wide /2 -margin #枕+1工程から開始
                         menseki = 0
                         d = Direction
-                        line_bot_message =roverName +'が[' + shpdata[3] +']の作業を始めました'
-                        bot.send(message=line_bot_message,)
+                        # line_bot_message =roverName +'が[' + shpdata[3] +']の作業を始めました'
+                        # bot.send(message=line_bot_message,)
                         # InfluxDBに書き込み
-                        influxdb_point = (
-                            InfluxPoint("gpslog")
-                            .tag("rovername", roverName)
-                            .field("圃場", shpdata[3] )
-                        )
-                        influxdb_client.write(database=influxdb_database, record=influxdb_point)
+                        influxdb_point = InfluxPoint("gpslog").tag("name", roverName).field("圃場", shpdata[3] ).field("作業", workname)
+                        influxdb_write_api.write(bucket="gpslog", record=influxdb_point)
+                        # influxdb_client.write(database=influxdb_database, record=influxdb_point)
                         print("Auto Set Line")
                     
                     time.sleep(1)
@@ -512,4 +515,8 @@ try:
                 print("Auto set error")
                 time.sleep(1)
                 os.system('wmctrl -a "TFT Simulator"' )
-
+except KeyboardInterrupt:
+    print("プログラムが中断されました")
+finally:
+    s.close()
+    print("ソケットを閉じました")
