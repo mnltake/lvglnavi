@@ -1,7 +1,8 @@
 [DEFAULT]
 # 機体名
 roverName = MY_TRACTOR
-
+# 作業名
+workname = 耕耘
 # 作業幅cm
 WIDE = 200
 
@@ -35,11 +36,14 @@ shpfile = /home/pi/lvglnavi/SHP/sample.shp
 # SHPとの余裕分cm
 margin = 20
 
-# LINE Notifyアクセストークン https://notify-bot.line.me/ja/
+# LINE Notifyアクセストークン https://notify-bot.line.me/ja/  2025/3/31でサービス終了
 line_access_token= ********************************
+# LINE MessageAPIアクセストークン　https://developers.line.biz/ja/reference/messaging-api/#issue-channel-access-token-v2-1
+line_messageAPI_access_token= ****************
 
 # Yahoo API ID https://developer.yahoo.co.jp/sitemap/
 yahoo_crient_id = $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
 
 # influxdata 
 influxdb_token= @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
