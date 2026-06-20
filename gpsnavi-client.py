@@ -62,7 +62,7 @@ aax = 0;aay = 0;bbx = 0;bby = 0;rrad = 0;AABBsin =0; AABBcos =1
 base = False
 area = 0
 c = 0 #offset cm →｜←
-Direction = bool(read_default.get('Direction'))
+Direction = read_default.getboolean('Direction')
 #Direction = True  #マーカー方向　枕2工程 :False  枕3工程 ：True
 d = Direction
 wra = -1 #levelは操舵方向：−１　　levelはズレ方向：+1
@@ -388,7 +388,7 @@ try:
                 c = 0
                 _rad =math.atan2(( _by - _ay ),( _bx - _ax ))
                 _ABsin = math.sin(-_rad)
-                _ABcos = math.cos(-rad)
+                _ABcos = math.cos(-_rad)
                 print("A-PointSet")
                 time.sleep(1)
             except :
